@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>vr-box</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>vr-box</h1>
+<a href=https://github.com/code4fukui/vr-paprika/>src on GitHub</a><br>
+</header>
+
+<div class="xrcontainer" id="container"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://code4fukui.github.io/three.js/build/three.module.js",
+    "three/addons/": "https://code4fukui.github.io/three.js/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import { THREE, createScene, loadGLB, setAnimationLoop } from "./egthree.js";
+
+const scene = createScene(document.body);
+
+const geo = new THREE.BoxGeometry(0.5, 1, 1.5);
+const mat = new THREE.MeshBasicMaterial({ color: 0xff0088 });
+const mesh = new THREE.Mesh(geo, mat);
+mesh.position.z = -2;
+scene.add(mesh);
+
+setAnimationLoop(() => {
+  mesh.rotation.y += 0.005;
+});
+</script>
+</body>
+
+</html>

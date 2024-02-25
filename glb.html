@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>vr-paprika</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>vr-paprika</h1>
+<a href=https://github.com/code4fukui/vr-paprika>src on GitHub</a><br>
+</header>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://code4fukui.github.io/three.js/build/three.module.js",
+    "three/addons/": "https://code4fukui.github.io/three.js/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import { createScene, loadGLB, setAnimationLoop } from "./egthree.js";
+
+const scene = createScene(document.body);
+
+const body = "./paprika.glb";
+const mesh = await loadGLB(body);
+scene.add(mesh);
+mesh.position.z = -0.28;
+mesh.position.y = -0.1;
+
+setAnimationLoop(() => {
+  mesh.rotation.y += 0.005;
+});
+
+</script>
+</body>
+</html>

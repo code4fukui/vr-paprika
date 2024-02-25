@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>vr-paprika</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>vr-paprika</h1>
+<div><a href=anim.html>Animation</a>, <a href=glb.html>GLB</a>, <a href=box.html>Box test</a></div>
+<a href=https://github.com/code4fukui/vr-paprika>src on GitHub</a><br>
+</header>
+
+<div class="xrcontainer" id="container"></div>
+
+<style>
+body {
+}
+header {
+  position: static;
+}
+#container {
+  width: 320px;
+  height: 240px;
+  margin: 1em;
+  background: gray;
+}
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://code4fukui.github.io/three.js/build/three.module.js",
+    "three/addons/": "https://code4fukui.github.io/three.js/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import { createScene, loadGLB, setAnimationLoop } from "./egthree.js";
+
+const scene = createScene(container, false);
+
+const urlbody = "./paprika-body.glb";
+const body = await loadGLB(urlbody);
+scene.add(body);
+
+const urlhandr = "./paprika-hand-right.glb";
+const urlhandl = "./paprika-hand-left.glb";
+const meshr = await loadGLB(urlhandr);
+const meshl = await loadGLB(urlhandl);
+body.add(meshr);
+meshr.position.x = -.045;
+meshr.position.y = .15;
+meshr.position.z = 0.03;
+body.add(meshl);
+meshl.position.x = .05;
+meshl.position.y = .16;
+meshl.position.z = 0.03;
+
+body.position.z = -0.28;
+body.position.y = -0.1;
+
+setAnimationLoop(() => {
+  const t = performance.now();
+  body.rotation.y += 0.005;
+  meshr.rotation.x = Math.cos(t * 0.001) * Math.PI / 2;
+  meshl.rotation.x = -Math.cos(t * 0.001) * Math.PI / 2;
+});
+
+</script>
+</body>
+</html>
