@@ -9,11 +9,12 @@
 <a href=https://github.com/code4fukui/vr-paprika>src on GitHub</a><br>
 </header>
 
+<main>
 <div class="xrcontainer" id="container"></div>
+<div class="usdz"><a rel=ar href=paprika.usdz><img src=paprika.jpg width=320 height=240><span class=innerbutton>USDZ</span></a></div>
+</main>
 
 <style>
-body {
-}
 header {
   position: static;
 }
@@ -22,6 +23,15 @@ header {
   height: 240px;
   margin: 1em;
   background: gray;
+}
+.usdz {
+  margin: 1em;
+  position: relative;
+}
+main > div {
+  vertical-align: top;
+  display: inline-block;
+  margin: 1em;
 }
 </style>
 
@@ -65,7 +75,6 @@ setAnimationLoop(() => {
   meshr.rotation.x = Math.cos(t * 0.001) * Math.PI / 2;
   meshl.rotation.x = -Math.cos(t * 0.001) * Math.PI / 2;
 });
-
 </script>
 </body>
 </html>

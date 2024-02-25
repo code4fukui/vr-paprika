@@ -7,10 +7,9 @@ export { THREE };
 const createXRButton = (renderer, sessionInit = {}) => {
   renderer.xr.enabled = true;
   renderer.xr.setReferenceSpaceType(sessionInit.spaceType);
-  //renderer.xr.setReferenceSpaceType("local-floor");
 
   const button = document.createElement("button");
-  button.className = "xrbutton";
+  button.className = "innerbutton";
 
   const showStartAR = () => showStartXR(true);
   const showStartVR = () => showStartXR(false);
@@ -28,8 +27,6 @@ const createXRButton = (renderer, sessionInit = {}) => {
       currentSession = null;
     };
     button.textContent = isImmersive ? "START AR" : "START VR";
-    button.onmouseenter = () => button.style.opacity = "1.0";
-    button.onmouseleave = () => button.style.opacity = "0.5";
     button.onclick = () => {
       if (currentSession === null) {
         const mode = isImmersive ? "immersive-ar" : "immersive-vr";
@@ -41,15 +38,11 @@ const createXRButton = (renderer, sessionInit = {}) => {
   }
 
   const disableButton = () => {
-    button.onmouseenter = null;
-    button.onmouseleave = null;
     button.onclick = null;
   };
   function showXRNotSupported() {
     if (renderer.domElement.requestFullscreen) {
       button.textContent = "FULL";
-      button.onmouseenter = () => button.style.opacity = "1.0";
-      button.onmouseleave = () => button.style.opacity = "0.5";
       button.onclick = () => {
         renderer.domElement.requestFullscreen();
       };
@@ -136,11 +129,10 @@ export const createScene = (_container) => {
   scene.add(light2);
 
   // WebXR
-  //const spaceType = "local-floor"; // not for PC
-  //const spaceType = "local";
-  const spaceType = "viewer"; // 3DoF
+  //const spaceType = "local-floor"; // not for PC and Quest
+  const spaceType = "local"; // as local-floor on Vision Pro
+  //const spaceType = "viewer"; // 3DoF
   container.appendChild(createXRButton(renderer, { spaceType }));
-
 
   //const offy = isVisionPro ? 1 : 0;
   return scene;
